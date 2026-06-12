@@ -38,6 +38,11 @@ def home():
 
 @app.route("/test-openai")
 def test_openai():
+    return jsonify({
+        "OPENAI_API_KEY_EXISTS": OPENAI_API_KEY is not None,
+        "OPENAI_API_KEY_LENGTH": len(OPENAI_API_KEY) if OPENAI_API_KEY else 0,
+        "OPENAI_API_KEY_PREFIX": OPENAI_API_KEY[:10] if OPENAI_API_KEY else "NONE"
+    })
     try:
         if not OPENAI_API_KEY:
             return jsonify({"ok": False, "error": "OPENAI_API_KEY 没有读取到"})
